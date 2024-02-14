@@ -1,0 +1,29 @@
+---
+ansible-navigator:
+  execution-environment:
+    environment-variables:
+      pass:
+        - IPA_PASS
+        - IPA_USER
+        - K8S_AUTH_API_KEY
+        - K8S_AUTH_VERIFY_SSL
+        - K8S_AUTH_SSL_CA_CERT
+        - K8S_AUTH_HOST
+        - SSH_PRIVATE_KEY
+        - SSH_PUBLIC_KEY
+        - VMWARE_HOST
+        - VMWARE_PASSWORD
+        - VMWARE_USER
+        - VMWARE_VALIDATE_CERTS
+        - TOWER_USERNAME
+        - TOWER_HOST
+        - TOWER_PASSWORD
+        - TOWER_VERIFY_SSL
+    image: quay.io/stormshift/iac-ansible-ee:202402141200
+  logging:
+    level: critical
+  mode: stdout
+  playbook-artifact:
+    enable: true
+    save-as: /tmp/sno_on_kubevirt-{playbook_name}-artifact-{time_stamp}.json
+

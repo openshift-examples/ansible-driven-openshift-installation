@@ -1,0 +1,50 @@
+---
+- name: Download OpenShift Artifacts
+  # Work-a-round: tags inheritance don't work without a block.
+  # https://github.com/ansible/ansible/issues/41540#issuecomment-419433375
+  block:
+    - name: Include tasks
+      ansible.builtin.include_tasks: download-openshift-artifacts.yml
+  tags: download-openshift-artifacts
+
+- name: Configure DNS
+  ansible.builtin.include_tasks: create-dns.yml
+  tags: dns
+
+- name: Create agent iso
+  ansible.builtin.include_tasks: create-agent-iso.yml
+  vars:
+    ssh_public_key: "{{ lookup('ansible.builtin.env', 'SSH_PUBLIC_KEY' ) }}"
+  tags: agnet-iso
+
+- name: Update AAP documentation
+  ansible.builtin.include_tasks: create-aap.yml
+
+- name: Deploy VM
+  ansible.builtin.include_tasks: create-vm.yml
+  tags: vm
+
+
+- name: Waiting for bootstrap to complete
+  ansible.builtin.command: "{{ openshift_install_command }} --dir={{ openshift_install_dir }} agent wait-for bootstrap-complete --dir {{ openshift_install_dir }} --log-level debug"
+  register: bootstrap_status
+  retries: 60
+  delay: 60
+  until: bootstrap_status.rc == 0
+
+- name: Waiting installation to complete
+  ansible.builtin.command: "{{ openshift_install_command }} --dir={{ openshift_install_dir }} agent wait-for install-complete --dir {{ openshift_install_dir }}"
+  register: install_status
+  retries: 60
+  delay: 60
+  until: install_status.rc == 0
+
+- name: Import in ACM
+  ansible.builtin.include_tasks: import-in-acm.yml
+  tags: acm
+
+- name: Cluster informations
+  ansible.builtin.debug:
+    msg: "{{ install_status.stderr_lines | map('regex_replace', 'level=info msg=\"(.*)\"', '\\1') | list }}"
+
+# - name: Upload agent-iso
