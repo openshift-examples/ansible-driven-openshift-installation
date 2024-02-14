@@ -40,8 +40,6 @@
     dest: "{{ openshift_install_dest }}/"
     remote_src: yes
     mode: u+rwx,g+rx,o+rx
-    owner: root
-    group: root
     exclude:
       - 'README.md'
     creates: "{{ openshift_install_dest }}/openshift-install"
@@ -52,8 +50,6 @@
     dest: "{{ openshift_install_dest }}/"
     remote_src: yes
     mode: u+rwx,g+rx,o+rx
-    owner: root
-    group: root
     exclude:
       - 'README.md'
     creates: "{{ openshift_install_dest }}/oc"
