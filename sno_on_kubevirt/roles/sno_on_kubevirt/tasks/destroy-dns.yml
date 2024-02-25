@@ -1,6 +1,6 @@
 ---
 
-  - name: Configure DNS
+  - name: Remove DNS records
     community.general.ipa_dnsrecord:
       zone_name: "{{ base_domain }}"
       record_name: "{{ item }}.{{ cluster_name }}"

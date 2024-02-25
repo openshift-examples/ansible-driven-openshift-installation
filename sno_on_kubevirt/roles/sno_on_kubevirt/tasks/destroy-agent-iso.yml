@@ -2,7 +2,7 @@
 
 
 # https://github.com/kubevirt/containerized-data-importer/blob/main/doc/upload.md
-- name: Create DataVolume
+- name: Remove DataVolume agnet-iso
   # register: my_var_with_return_value
   kubernetes.core.k8s:
     state: absent

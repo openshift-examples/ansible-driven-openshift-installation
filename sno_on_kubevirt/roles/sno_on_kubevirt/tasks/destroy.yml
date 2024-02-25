@@ -5,10 +5,13 @@
   ansible.builtin.include_tasks: remove-from-acm.yml
   tags: acm
 
-- name: Configure DNS
+- name: Destroy VM
+  ansible.builtin.include_tasks: destroy-vm.yml
+  tags: vm
+
+- name: Remove DNS records
   ansible.builtin.include_tasks: destroy-dns.yml
   tags: dns
-
 
 - name: Update AAP documentation
   ansible.builtin.include_tasks: clean-aap.yml
@@ -18,7 +21,3 @@
   vars:
     ssh_public_key: "{{ lookup('ansible.builtin.env', 'SSH_PUBLIC_KEY' ) }}"
   tags: agnet-iso
-
-- name: Destroy VM
-  ansible.builtin.include_tasks: destroy-vm.yml
-  tags: vm
