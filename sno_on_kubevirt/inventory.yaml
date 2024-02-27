@@ -1,6 +1,8 @@
 ---
 all:
   vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    ansible_connection: local
     artifacts_dir: /tmp
     upload_host: https://cdi-uploadproxy-openshift-cnv.apps.isar.coe.muc.redhat.com
     namespace: rbohne-sno
