@@ -1,0 +1,16 @@
+---
+collections:
+ - community.general
+ - community.kubernetes
+ - kubernetes.core
+ - ansible.posix
+ - community.crypto
+ - kubevirt.core
+
+ - name: https://github.com/ansible-collections/community.libvirt
+   type: git
+   version: main
+
+ - community.vmware
+
+ - awx.awx

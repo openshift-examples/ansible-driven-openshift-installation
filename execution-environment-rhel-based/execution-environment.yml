@@ -1,0 +1,28 @@
+---
+version: 3
+
+images:
+  base_image:
+    name: 'registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel9:latest'
+
+additional_build_steps:
+  prepend_builder:
+    - ENV PKGMGR_OPTS="--nodocs --setopt=install_weak_deps=0 --setopt=rhocp-4.15-for-rhel-9-x86_64-rpms.enabled=true"
+  prepend_final:
+    - ENV PKGMGR_OPTS="--nodocs --setopt=install_weak_deps=0 --setopt=rhocp-4.15-for-rhel-9-x86_64-rpms.enabled=true"
+
+dependencies:
+  galaxy:
+    collections:
+      - name: community.general
+      - name: community.kubernetes
+      - name: kubernetes.core
+      - name: ansible.posix
+      - name: community.crypto
+      - name: kubevirt.core
+
+      - name: community.libvirt
+        src: git+https://github.com/ansible-collections/community.libvirt
+
+      - name: community.vmware
+      - name: awx.awx
