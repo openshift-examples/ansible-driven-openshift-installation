@@ -19,9 +19,9 @@ ansible-navigator:
         - TOWER_HOST
         - TOWER_PASSWORD
         - TOWER_VERIFY_SSL
-    image: quay.io/stormshift/iac-ansible-ee:202402141200
+    image: quay.io/openshift-examples/ansible-driven-openshift-installation:202404081640
   logging:
-    level: critical
+    level: debug
   mode: stdout
   playbook-artifact:
     enable: true
