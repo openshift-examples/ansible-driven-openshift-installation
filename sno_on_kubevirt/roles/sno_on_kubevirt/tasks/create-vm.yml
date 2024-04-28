@@ -39,10 +39,13 @@
         cpu:
           cores: 8
         memory:
-          guest: 16Gi
+          guest: 16384Mi
         resources:
           requests:
-            memory: 16Gi
+            memory: 16384Mi
+          # https://docs.openshift.com/container-platform/4.14/virt/install/preparing-cluster-for-virt.html#virt-cluster-resource-requirements_preparing-cluster-for-virt
+          limits:
+            memory: 16705Mi
         devices:
           disks:
             - name: root
