@@ -44,8 +44,22 @@
           requests:
             memory: 16384Mi
           # https://docs.openshift.com/container-platform/4.14/virt/install/preparing-cluster-for-virt.html#virt-cluster-resource-requirements_preparing-cluster-for-virt
+          # Based on the calculation:
+          # Memory overhead per virtual machine ≈ (1.002 × requested memory) \
+          #               + 218 MiB \
+          #               + 8 MiB × (number of vCPUs) \
+          #               + 16 MiB × (number of graphics devices) \
+          #               + (additional memory overhead)
+          #
+
+          # echo "(16384 * 1.002) + 218 + (8*8)" | bc -l
+          #  => 16698.768
+          # + 20Mib because of https://docs.openshift.com/container-platform/4.15/virt/monitoring/virt-runbooks.html#virt-runbook-KubevirtVmHighMemoryUsage
+          #   echo "(16384 * 1.002) + 218 + (8*8) + 20 " | bc -l
+          #  => 16718.768
+          #  round: 16720Mi
           limits:
-            memory: 16705Mi
+            memory: 16720Mi
         devices:
           disks:
             - name: root
