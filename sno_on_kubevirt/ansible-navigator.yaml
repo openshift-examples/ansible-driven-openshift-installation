@@ -19,7 +19,7 @@ ansible-navigator:
         - TOWER_HOST
         - TOWER_PASSWORD
         - TOWER_VERIFY_SSL
-    image: quay.io/openshift-examples/ansible-driven-openshift-installation:202404081640
+    image: quay.coe.muc.redhat.com/stormshift/automation-execution-environment:202405081739
   logging:
     level: debug
   mode: stdout

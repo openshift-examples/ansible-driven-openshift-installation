@@ -22,20 +22,20 @@
       kubeadmin_password: "{{ slurp_kubeadmin_password['content'] | b64decode }}"
       kubeconfig: "{{ slurp_kubeconfig['content'] | b64decode }}"
 
-- name: Add host
-  awx.awx.host:
-    name: "{{ cluster_name }}"
-    description: "Single Node"
-    inventory: sno
-    state: present
-    variables:
-      ansible_host: "{{ network_ip_address }}"
-      ansible_user: core
+# - name: Add host
+#   awx.awx.host:
+#     name: "{{ cluster_name }}"
+#     description: "Single Node"
+#     inventory: sno
+#     state: present
+#     variables:
+#       ansible_host: "{{ network_ip_address }}"
+#       ansible_user: core
 
-- name: Create group for cluster
-  awx.awx.group:
-    name: "cluster_{{ cluster_name }}"
-    description: "Cluster {{ cluster_name }} Group"
-    inventory: sno
-    hosts:
-      - "{{ cluster_name }}"
+# - name: Create group for cluster
+#   awx.awx.group:
+#     name: "cluster_{{ cluster_name }}"
+#     description: "Cluster {{ cluster_name }} Group"
+#     inventory: sno
+#     hosts:
+#       - "{{ cluster_name }}"
